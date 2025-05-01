@@ -1,8 +1,9 @@
-import pdfplumber
+# pdf_reader.py
+import fitz  # PyMuPDF
 
 def pdf_to_text(file):
+    doc = fitz.open(stream=file.read(), filetype="pdf")
     text = ""
-    with pdfplumber.open(file) as pdf:
-        for page in pdf.pages:
-            text += page.extract_text()
+    for page in doc:
+        text += page.get_text() + "\n"
     return text
